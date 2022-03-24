@@ -49,24 +49,24 @@ void loadImageAndPopulateBuffer( int image ) {
 	for ( int i = 0; i < NUM_LAYERS; i++ ) {
 		std::string filename;
 		switch ( i ) {
-			case COLOR: 		filename = std::string( "Color Data (PNG)/" ) + std::to_string( image + 1 ) + std::string( ".png" ); break;
-			case BLOOD: 		filename = std::string( "Organ System Masks (PNG)/Blood/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case BRAIN: 		filename = std::string( "Organ System Masks (PNG)/Brain/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case DUODENUM: 	filename = std::string( "Organ System Masks (PNG)/Duodenum/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case EYERETINA: filename = std::string( "Organ System Masks (PNG)/EyeRetina/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case EYES: 			filename = std::string( "Organ System Masks (PNG)/Eyes/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case EYEWHITE: 	filename = std::string( "Organ System Masks (PNG)/EyeWhite/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case HEART: 		filename = std::string( "Organ System Masks (PNG)/Heart/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case ILEUM: 		filename = std::string( "Organ System Masks (PNG)/Ileum/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case INTESTINE:	filename = std::string( "Organ System Masks (PNG)/Intestine/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case KIDNEY: 		filename = std::string( "Organ System Masks (PNG)/Kidney/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case LIVER: 		filename = std::string( "Organ System Masks (PNG)/Liver/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case LUNG: 			filename = std::string( "Organ System Masks (PNG)/Lung/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case MUSCLE: 		filename = std::string( "Organ System Masks (PNG)/Muscle/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case NERVES: 		filename = std::string( "Organ System Masks (PNG)/Nerves/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case SKELETON: 	filename = std::string( "Organ System Masks (PNG)/Skeleton/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case SPLEEN: 		filename = std::string( "Organ System Masks (PNG)/Spleen/" ) + std::to_string( image ) + std::string( ".png" ); break;
-			case STOMACH: 	filename = std::string( "Organ System Masks (PNG)/Stomach/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case COLOR: 		filename = std::string( "../Color Data (PNG)/" ) + std::to_string( image + 1 ) + std::string( ".png" ); break;
+			case BLOOD: 		filename = std::string( "../Organ System Masks (PNG)/Blood/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case BRAIN: 		filename = std::string( "../Organ System Masks (PNG)/Brain/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case DUODENUM: 	filename = std::string( "../Organ System Masks (PNG)/Duodenum/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case EYERETINA: filename = std::string( "../Organ System Masks (PNG)/EyeRetina/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case EYES: 			filename = std::string( "../Organ System Masks (PNG)/Eyes/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case EYEWHITE: 	filename = std::string( "../Organ System Masks (PNG)/EyeWhite/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case HEART: 		filename = std::string( "../Organ System Masks (PNG)/Heart/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case ILEUM: 		filename = std::string( "../Organ System Masks (PNG)/Ileum/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case INTESTINE:	filename = std::string( "../Organ System Masks (PNG)/Intestine/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case KIDNEY: 		filename = std::string( "../Organ System Masks (PNG)/Kidney/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case LIVER: 		filename = std::string( "../Organ System Masks (PNG)/Liver/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case LUNG: 			filename = std::string( "../Organ System Masks (PNG)/Lung/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case MUSCLE: 		filename = std::string( "../Organ System Masks (PNG)/Muscle/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case NERVES: 		filename = std::string( "../Organ System Masks (PNG)/Nerves/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case SKELETON: 	filename = std::string( "../Organ System Masks (PNG)/Skeleton/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case SPLEEN: 		filename = std::string( "../Organ System Masks (PNG)/Spleen/" ) + std::to_string( image ) + std::string( ".png" ); break;
+			case STOMACH: 	filename = std::string( "../Organ System Masks (PNG)/Stomach/" ) + std::to_string( image ) + std::string( ".png" ); break;
 			default: break;
 		}
 
@@ -109,6 +109,77 @@ void loadImageAndPopulateBuffer( int image ) {
 				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
 				writeAtLocation( x, y, image, 230, 64, 32, 200 );
 			}
+
+			if ( inputImageData[ BRAIN ][ ( x + imageWidth[ BRAIN ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 230, 64, 96, 145 );
+			}
+
+			if ( inputImageData[ BRAIN ][ ( x + imageWidth[ BRAIN ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 230, 64, 96, 145 );
+			}
+
+			if ( inputImageData[ DUODENUM ][ ( x + imageWidth[ DUODENUM ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 145, 85, 96, 128 );
+			}
+
+			if ( inputImageData[ EYES ][ ( x + imageWidth[ EYES ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 45, 32, 64, 55 );
+			}
+
+			if ( inputImageData[ EYERETINA ][ ( x + imageWidth[ EYERETINA ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 32, 32, 32, 88 );
+			}
+
+			if ( inputImageData[ EYEWHITE ][ ( x + imageWidth[ EYEWHITE ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 164, 164, 164, 99 );
+			}
+
+			if ( inputImageData[ HEART ][ ( x + imageWidth[ HEART ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 200, 164, 109, 128 );
+			}
+
+			if ( inputImageData[ ILEUM ][ ( x + imageWidth[ ILEUM ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 145, 32, 56, 128 );
+			}
+
+			if ( inputImageData[ INTESTINE ][ ( x + imageWidth[ INTESTINE ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 160, 102, 35, 128 );
+			}
+
+			if ( inputImageData[ KIDNEY ][ ( x + imageWidth[ KIDNEY ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 102, 45, 12, 128 );
+			}
+
+			if ( inputImageData[ LIVER ][ ( x + imageWidth[ LIVER ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 66, 11, 7, 128 );
+			}
+
+			if ( inputImageData[ LUNG ][ ( x + imageWidth[ LUNG ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 204, 156, 150, 145 );
+			}
+
+			if ( inputImageData[ SPLEEN ][ ( x + imageWidth[ SPLEEN ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 127, 37, 30, 108 );
+			}
+
+			if ( inputImageData[ STOMACH ][ ( x + imageWidth[ STOMACH ] * y ) * 4 ] == 255 ) {
+				// writeAtLocation( x, y, image, inputImageData[ COLOR ][ index ], inputImageData[ COLOR ][ index + 1 ], inputImageData[ COLOR ][ index + 2 ], 200 );
+				writeAtLocation( x, y, image, 186, 102, 29, 145 );
+			}
+
 
 		}
 	}
