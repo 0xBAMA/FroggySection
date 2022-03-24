@@ -1,0 +1,18 @@
+This is the second frog used in the Whole Frog Project. Three sets of data
+were produced with the MRI scans.  frog2ci.hips seemed to be the best,
+and only this set of data was processed using HIPS filters to balance the 
+contrast on the images.
+
+This same frog was later sliced and a better data set is produced that showed
+more detail of the frog.
+
+frog2ci.hips --  is a spin echo data set
+with 50 slices, inplane resolution of 0.5mm, slice thickness and 
+separation of 1.0mm, TE = 33ms.
+
+The individual slices are in the tiff directory.
+
+For information about the HIPS file format see
+http://www-itg.lbl.gov/ITG.hm.pg.docs/image-proc/CCS-ECL/README.txt
+
+This data is copyrighted by Lawrence Berkeley National Laboratory.

@@ -1,0 +1,14 @@
+
+ORANGE.MASKS.tar:  masks, unsigned byte
+		   oran.core
+		   oran.inner
+		   oran.mem
+		   oran.outter
+		   oran.pulp
+		   oran.seed
+
+ORANGE.IMAGES.tar.Z: raster screendump of 2D images of orange 
+
+orange.data.Z:     raw MRI data, unsigned byte
+
+orange.hd:         dimensions of orange data 

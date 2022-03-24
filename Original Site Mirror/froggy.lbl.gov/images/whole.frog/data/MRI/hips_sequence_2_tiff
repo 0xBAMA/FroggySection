@@ -1,0 +1,13 @@
+if test $# -ne 3
+then echo "Usage: hips_sequence_2_tiff <hips_basefilename> <first index> <second index>"
+     exit 0
+fi
+start=1
+first=$2 
+last=$3
+while test $first -le $last 
+do
+    subseq -f $first $1.hips | totiff > $1.$start.tif
+	start=`expr $start + 1`
+	first=`expr $first + 1`
+done

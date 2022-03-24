@@ -1,0 +1,83 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head><title>Virtual Frog Dissection Kit Changes</title>
+<meta name="description" content="Virtual Frog Dissection Kit">
+<meta name="keywords" content="frog dissection K-12 education">
+<meta name="distribution" content="global">
+</head>
+
+<body bgcolor="#ffffff">
+<h2 align="center">Changes</h2>
+
+<p>The Whole Frog and Virtual Frog pages have been consolidated under
+<a href="../">https://froggy.lbl.gov/</a>.
+All non-statistics scripts have been combined into
+the dissect script.  The tutorial portion is accessed via
+<a href="/cgi-bin/dissect?tutorial0">
+https://froggy.lbl.gov/cgi-bin/dissect?tutorial0</a>, and the game portion is
+accessed via
+<a href="https://froggy.lbl.gov/cgi-bin/dissect?game">
+/cgi-bin/dissect?game</a>.</p>
+
+<p>The default view of the frog is now the standard dissection view, with
+the ventral (bottom) surface up, and the nose facing upward.</p>
+
+<p>The rotation controls have been combined into a compass-like control 
+above the frog image.  Clicking on an arrow turns the frog in that
+general direction.  Clicking on the diamond in the middle flips the
+frog.  The reset button has been moved above the frog image.  The
+organ selection controls are now simulations of checkboxes, and clicking
+on a checkbox immediately adds or subtracts that organ.  (At some
+point in the future everything will be converted to use Javascript, PHP,
+and CSS.)
+The "Skin" controls have been condensed into a single organ setting.
+"Cut away" is now the default for "Skin on".</p>
+
+<p>Image file names are now better suited for caching.
+This should result in a much more responsive frog.  Temporary files are
+cached longer, and many form submits will not result in a call to the
+rendering server.</p>
+
+<p>There are now only two possible image sizes.  The default size
+is 250x250, and the large size is 400x400.  The control to change
+the size is to the upper right of the frog image ('+' maximizes, '-'
+goes back to default size).
+
+<h3>Frog Builder Game</h3>
+
+<p>The process of adding a frog organ has been streamlined.  Clicking
+on an organ checkbox to add an organ will turn that checkbox
+to a red question mark.  Instead of having to re-check the organ every time
+an unsuccessful play was made, the game remembers the previous attempt
+until either a play is successful, at which point the checkbox will be
+checked, or another organ is attempted.</p>
+
+<br/>
+<hr WIDTH=80% NOSHADE>
+<br/>
+<center><font face=arial,helvetica size=-1>
+<a href="https://www.lbl.gov/">Berkeley Lab</a> |
+<a href="https://dst.lbl.gov/">DST</a> | 
+<a href="https://www.lbl.gov/disclaimers/">Notice to Users</a> |
+<a href="/">Whole Frog Project</a> |
+<a href="/virtual/">Virtual Frog</a>
+</font></center>
+
+<p>
+<center><table Width="85%">
+<tr><td>
+<font face=arial,helvetica size=2 COLOR=GRAY>
+<!-- timefmt and LAST_MODIFIED are Apache variables. timfmt uses
+     the syntax of strtfmt -->
+
+<b>Page last modified:</b> 03/25/19<br/>
+<b>Contacts:</b> <a href="mailto:WEJohnston@lbl.gov">Bill Johnston</a>, 
+<a href="mailto:DWRobertson@lbl.gov">David Robertson</a><br/>
+
+</font>
+</table>
+</center>
+
+
+</body>
+</html>

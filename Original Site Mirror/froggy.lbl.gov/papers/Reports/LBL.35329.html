@@ -1,0 +1,240 @@
+<title>Geometric Analysis, Visualization, and Conceptualization of 3D Image Data</title>
+<h1>Geometric Analysis, Visualization, and Conceptualization of 3D Image Data</h1>
+<p>
+
+William Johnston and Wing Nip<br>
+Imaging and Distributed Computing Group<br>
+Information and Computing Sciences Division<br>
+Lawrence Berkeley Laboratory<br>
+Berkeley, CA 94720<p>
+
+Publication number: LBL-35329<p>
+
+<a href="../../index.html#credits">Credits</a><p>
+
+<h2>CONTENTS</h2>
+
+<ul>
+<li><a href=#intro>Introduction</a>
+<li><a href=#(1)> (1) Acquire information about the inside of an object, and generate
+a 3D image data set</a>
+<li><a href=#(2)>(2) Define the regions (geometric structures) of interest</a>
+<li><a href=#(3)>(3) Create a geometric model for each of the structures of interest</a>
+<li><a href=#(4)>(4) Use computer graphics to visualize the results</a>
+<li><a href=#(5)>(5) Exploration and discovery</a>
+</ul>
+<p>
+
+<h2>
+<a name = intro>
+Introduction</h2>
+
+The acquisition and study of image-like data from throughout the volume of an object permits
+us to represent and explore the internal three-dimensional structure of that object
+exactly as it exists in the undisturbed object. This unit will explore how such image
+data is obtained, and the kinds of analysis and visualization that can be done with the
+data by using computer based imaging and visualization. This work introduces
+concepts in 3D geometry, 2D and 3D image processing and display,
+computer graphics and visualization, and the exciting ability of imaging and computer systems
+to explore the frequently complex and invisible world of the "insides" of a plant,
+animal, machine, etc.<p>
+
+In general terms the steps involved in this exploration are as follows, and we
+will examine each of them in detail in the course of this study unit.<p>
+
+<h2>
+<a name = (1)>
+(1) Acquire information about the inside of an object, and generate
+a 3D image data set:</h2>
+
+The image of the inside of an object can arise
+from:<p>
+
+<ul>
+<li> Serial
+sections obtained directly (e.g. confocal microscopy, or mechanical
+sectioning of an object);
+<li>Serial sections obtained from NMR or tomographic reconstruction;
+<li>3D Holography;
+<li>Direct calculation from mathematical models.
+</ul><p>
+
+The resulting 3D image is a discrete scalar field, that is, it is a 3D grid
+with values given at each point of the grid. This type of 3D image is frequently
+called a voxel data set. (The word "voxel" is derived
+from "volume pixel"). The numeric values of the voxels must, of course, be interpreted
+according to the nature of the imaging process (they might represent material
+density, concentration of hydrogen, electron density, color, etc.) Figure 1 (
+<a href="../../images/orange/orange.slice.jpg">
+<img src="../../images/orange/orange.slice-small.gif"></a>
+)
+shows part of a 3D data set of an NMR (MRI) scan of an orange. The
+image values (quantity of magnetically excitable hydrogen, which is typically
+different in different type of biological tissues) are represented as shades of gray. Figure 2 (
+<a href="../../images/orange/orange.212.jpg"><img src="../../images/orange/orange.2.1-small.gif"></a>
+)
+use optical density to represent the 3D nature of the data.
+In other words, each grid point
+is assigned a gray value and opacity based on the magnitude of the data value
+("0" is transparent and black,
+while the highest value is completely opaque, and white).
+When this representation is carefully designed, the voxel data set is seen
+in a "cloud like" appearance.<p>
+
+<h2>
+<a name = (2)>
+(2) Define the regions (geometric structures) of interest:</h2>
+
+This process (called segmentation) can be done automatically if the
+regions are well separated in terms of data values. Normally, however, a human has
+to give "hints" as to where the boundaries are located because imperfect
+imaging techniques loose or modify the information needed for unambiguous
+interpretation. These hints
+are really the incorporation of auxiliary knowledge (what we know about the
+object from other types of studies). For example, a human can say "I know
+because of other imaging studies, and because  I have cut this object open
+and looked at it, that this boundary which appears to fade away in this
+part of the image, really continues and reconnects over here.
+The artifact arises from problems
+in acquiring the 3D image. To correct for this I will draw in the boundary
+to reflect what I know is really the case."
+These hints are usually provided
+in the form of "masks" defined in planes that are 2D slices through
+the 3D data set. These slices may, or may not, correspond to any physical aspect
+of the original imaging. The actual process entails using a "paint-brush" like
+program to mark boundaries. This process has to be done separately for each
+structure of interest. Figure 3 (
+<a href="../../images/orange/orange.masks.jpg"><img src="../../images/orange/orange.masks-small.gif"></a>
+)
+shows one of the 3D masks for each
+of the six structures defined for the orange:<p>
+
+<ul>
+<li>The outer skin (the glossy orange surface);
+<li>The inner skin (the
+white pithy material below the glossy orange covering);
+<li>The largest scale membranes that surround the pulpy part of the fruit (that
+is, the membranes that form the familiar wedges of an orange);
+<li>The volume region that is occupied by the pulp;
+<li>The seeds;
+<li>The "core".
+</ul><p>
+
+A mask is defined for every slice that intersects the structure of interest. In
+the case of the outer skin, this means that 64 masks are needed to define
+the structure since the outer skin intersects all 64 slices of the volume
+data. (
+
+<a href="../../images/orange/orange.masks.jpg">Figure 3</a>
+
+shows one typical mask for each of the six structures (at slice
+32, which is about the middle of the orange).<p>
+
+<h2>
+<a name = (3)>
+(3) Create a geometric model for each of the structures of interest:</h2>
+
+By "geometric" model we mean a collection of geometric
+primitives (points, lines, polygons, etc.) that accurately represent
+the shape of the surface.  These geometric descriptions are used
+to enhance the visualization of the object and to provide for quantitative
+analysis (the surface area, volume, mean curvature, topology, etc.).<p>
+
+When we started, the surfaces
+of the structures were represented only implicitly by differences
+in color.
+There are a number of ways to convert the color changes into geometry.
+Conceptually most of the methods involve some sort of contouring.
+Consider a 2D slice of the volume image, and we draw lines through
+that slice along pixels of constant value (color).
+This operation effectively defines the boundary between areas of different color.
+The masks mentioned above are human supplied hints as to where to draw these
+contour lines in the areas where the color difference fades away.<p>
+
+By effectively stacking the masks, and covering the
+surfaces with a tightly fitting, fishnet like mesh (a process called
+tessellation) we generate
+3D polygons that do not overlap each other, and do not leave holes in the mesh.
+This mesh of small polygons is now a "geometric" definition of the surface
+of the structure of interest. Such a geometric model is built for each structure
+of interest. Figure 4 (
+
+<a href="../../images/orange/orange.geometry.jpg"><img src="../../images/orange/orange.geometry-small.gif"></a>
+)
+shows both the inner skin model, and the model for the
+seeds.<p>
+
+<h2>
+<a name = (4)>
+(4) Use computer graphics to visualize the results:</h2>
+
+The next step is to present the models in a way that allows people to understand
+the spatial features and relationships in the interior
+of the object. This is done by using a collection of computer graphics
+techniques called visualization.<p>
+
+<ul>
+<li>The surface of one, or more, of the geometric models can be represented
+as opaque as shown in Figure 5 (
+
+<a href="../../images/orange/orange.inter.jpg">
+<img src="../../images/orange/orange.inter.1-small.gif"></a>
+)
+<li>The masks can be treated as outlines, and stacked, and then used in combination with other models.
+Figure 6 (
+
+<a href="../../images/orange/orange.inter.5.jpg"><img src="../../images/orange/orange.inter.5-small.gif"></a>
+)
+shows the membrane masks stacked, with the seed model represented as opaque
+surfaces.
+<li>Combinations of all of the available techniques usually give the best results as shown in Figure 7 (
+
+<a href="../../images/orange/orange.final.jpg">
+<img src="../../images/orange/orange.final.1-small.gif"></a>
+).
+</ul><p>
+
+<h2>
+<a name = (5)>
+(5) Exploration and discovery:</h2>
+
+When the modeling process is complete, students may explore and manipulate
+the invisible geometry of the object. Figure 8 (
+
+<a href="../../images/orange/orange.exploded.jpg"><img src="../../images/orange/orange.exploded-small.gif"></a>
+)
+is the result of a high school
+student using a commercial 3D animation program to make the "exploded"
+view of the orange model produced the process described above.
+What this student really wants to do is to make
+an exploded view of a frog, not like anatomy books where inside
+parts are pulled apart to expose what is underneath, but by leaving
+everything in it's correct 3D relationship, and "fading out"
+the parts that obscure the areas of interest, etc.<p>
+
+<br/>
+<hr WIDTH=80% NOSHADE>
+<br/>
+<center><font face=arial,helvetica size=-1>
+<a href="https://www.lbl.gov/">Berkeley Lab</a> |
+<a href="https://dst.lbl.gov/">DST</a> | 
+<a href="https://www.lbl.gov/disclaimers/">Notice to Users</a> |
+<a href="/">Whole Frog Project</a> |
+<a href="/virtual/">Virtual Frog</a>
+</font></center>
+
+<p>
+<center><table Width="85%">
+<tr><td>
+<font face=arial,helvetica size=2 COLOR=GRAY>
+<!-- timefmt and LAST_MODIFIED are Apache variables. timfmt uses
+     the syntax of strtfmt -->
+
+<b>Page last modified:</b> 03/25/19<br/>
+<b>Contacts:</b> <a href="mailto:WEJohnston@lbl.gov">Bill Johnston</a>, 
+<a href="mailto:DWRobertson@lbl.gov">David Robertson</a><br/>
+
+</font>
+</table>
+</center>
+

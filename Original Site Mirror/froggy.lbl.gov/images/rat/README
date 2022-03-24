@@ -1,0 +1,3 @@
+rat.data.Z:     raw MRI data, unsigned byte
+
+rat.hd:         dimensions of rat data 

@@ -1,0 +1,566 @@
+<title> WHOLE FROG TECHNICAL REPORT</title>
+
+<h1>WHOLE FROG TECHNICAL REPORT</h1>
+
+WING NIP, CRAIG LOGAN<br>
+Imaging and Distributed Computing Group<br>
+Information and Computing Sciences Division<br>
+Lawrence Berkeley Laboratory<br>
+Berkeley, CA 94720<p>
+
+Publication number: LBL-35331<p>
+
+<a href="../../index.html#credits">Credits</a><p>
+
+<h2>CONTENT</h2>
+<ul>
+<li><a href=#INTRODUCTION>INTRODUCTION</a>
+<li><a href=#MRI_DATA>MRI DATA</a>
+<li><a href=#PHOTOGRAPH>PHOTOGRAPH DATA (CRYOTOME)</a>
+<li><a href=#SEGMENTATION>SEGMENTATION</a>
+<li><a href=#VISUALIZATION>VISUALIZATION IN 3D</a>
+<li><a href=#PROBLEMS>PROBLEMS ENCOUNTERED</a>
+<ul>
+<li><a href=#Photographing>Photographing Lighting</a>
+<li><a href=#Misalignment>Misalignment</a>
+<li><a href=#Digitizing>Digitizing Lighting</a>
+<li><a href=#Segmentation>Segmentation</a>
+<li><a href=#Inconsistent>Inconsistent Data</a>
+<li><a href=#Higher>Higher Resolution Desire</a>
+</ul>
+<li><a href=#IMPROVEMENT>IMPROVEMENT</a>
+</ul>
+
+<h2><a name = INTRODUCTION>INTRODUCTION</h2>
+
+ The goal of the Whole Frog Project is to be able to
+
+represent the anatomy of a frog in a computer in 3D space in
+
+such a way that a high school student will find it useful in
+
+learning physiology, hopefully developing a sense of
+
+interest in using computers at the same time.<p>
+
+
+
+<h2><a name = MRI_DATA>MRI DATA</h2>
+
+     The original plan is to make use of Magnetic Resonance
+
+Imaging (MRI) to produce a sequence of 2D gray scale image
+
+slices of the whole frog.  Photographs are also to be taken
+
+of real slices of the frog, to be used as an aid in the
+
+visual segmentation of the animal.  Thus the position of the
+
+frog needs to be maintained as closely as possible during
+
+the MRI and actual slicing.  To accomplish this task, the
+
+frog's toes are glued to a platform, and its upper body is
+
+lifted and rested on Styrofoam during the MRI scan.  After
+
+the the scan, the frog is moved to a freezer with its
+
+position unaltered for later slicing and photographing.  The
+
+result of the 50 slices of MRI data is not too encouraging.
+
+The bones are very well represented, but the abdominal
+
+region is distorted.  It is almost impossible to distinguish
+
+the main organs.  However, the photograph data greatly
+
+exceeds our expectations.  Not only does it have better
+
+resolution than the MRI data, its colors help distinguish
+
+different organs.  Consequently, the photograph data is used
+
+instead of the MRI data.<p>
+
+
+
+<h2><a name = PHOTOGRAPH>PHOTOGRAPH DATA (CRYOTOME)</h2><p>
+
+
+     After the frog has been frozen to -30 degree C, it is
+
+placed on a metal plate.  Then a sheet of aluminum foil is
+
+placed under the metal plate, and folded up on all sides
+
+around the frog.   Wax is poured on the metal plate, around
+
+the frog in order to stabilize it during the vivisection
+
+procedure.   As soon as the wax solidifies, the plate is
+
+mounted in a cyrotome, a machine designed to make micro
+
+meter thin slices in organic material .  A sharp blade is
+
+mounted at one end of the cyrotome.  The cutting procedure
+
+involves the movement of the plate toward the blade for a
+
+slice and then retraction (under the blade for another
+
+slice).  As the plate retracts to the extreme end, its
+
+height is increased by a precise level of set measurement.
+
+Then, it moves toward the blade for the next slice.  In this
+
+experiment , the frog is raised by 50 micron for each slice.
+
+A camera and lighting apparatus are placed over the
+cryotome, and are focused on the frog.  The cryotome's blade
+
+is then adjusted to cut at the proper angle.  With the frog,
+
+the blade, leverage, the lighting and camera set correctly,
+
+the cryotome is turned on.  Inside the cryotome, the metal
+
+plate slides past a stationary blade, removing  a 50 micron
+
+slice of the frog with every pass.  A picture is taken of
+
+the sliced surface of the frog every five slices.  By the
+
+end of this process, 136 pictures are taken.<p>
+
+
+
+     The next step in this process involves making the
+
+photograph data assessable to computer manipulation.  First,
+
+a digitizing camera is used to capture the pictures for
+
+later use in the computer.  After all the photographs are
+
+converted to images in the computer, it is necessary to use
+
+some image processing techniques to align and enhance the
+
+images.<p>
+
+
+
+<h2><a name = SEGMENTATION>SEGMENTATION</h2><p>
+
+
+     In order to display an individual part of the frog in
+
+3D space, there is a need to segment or isolate that part.
+
+The segmentation is done on the images of the 2D slices and
+
+is called a mask, which is made up of white and black
+
+pixels.  The segmentation is done using a program called
+
+Segmentation Analyzer(Segal) which uses the technique of
+
+thresholding, region growing and hand drawing to establish
+
+the boundary of the region of interest within each 2D slice.
+
+With thresholding, an area of interest , make up of a range
+
+of gray values, is given.  The result of thresholding is to
+
+have the pixels that fall in a particular range to be set to
+
+white while the rest are set to black.  This produces a mask
+
+of black and white value.  The growing method also involves
+
+a given range of gray values.  In addition one or more
+
+points(pixel) are given.  Any pixels in the neighborhood of
+
+the given pixels that fall in the range of the gray values
+
+will get set to white and the rest set to black.  Most of
+
+the time, the growing or the thresholding method do not
+
+segment  or isolate the desired object perfectly.  So the
+
+hand drawing is always used to touch up the final mask.<p>
+
+
+     Segal has one additional feature which helps the
+
+process of segmentation.  This feature allows a few masks to
+
+be loaded at once and enables different masks to be
+
+exclusive.  When a mask becomes exclusive, its region is
+
+completely ignored by any of the segmentation methods.  In
+
+other words, that region can not be drawn on.  This method
+
+avoids overlapping masks when segmenting objects are
+
+adjacent to each other, like bone and muscle.  If one is to
+
+start  segmenting the more obvious objects then the hardest
+
+objects will not be too difficult to segment later with the
+
+help of exclusive masks.<p>
+
+
+
+     In this project, 13 masks are generated.  They are used
+
+to define the skeleton, eyes, brain, kidney, heart, lung,
+
+nerve, blood vessel, stomach, large intestine, liver, small
+
+intestine, and muscles.<p>
+
+
+
+<h2><a name = VISUALIZATION>VISUALIZATION IN 3D</h2><p>
+
+
+     Volume data is formed when all the slices of data
+
+images are stacked up.  Each point in that volume space is
+
+called a voxel.  A program named Sunvoxel is used to convert
+
+the 3D segmented image data of the frog into a projected
+
+view that can be displayed on the workstation screen.  This
+
+program is capable of direct rendering of 3D data in a semi-
+
+transparent surface.  It can handle multiple substances (e.g
+
+heart, lung, etc) with transparency and color value assigned
+
+to them.  Each substance is classified by its range of voxel
+
+values.  With the aid of the masks, the pixels of each
+
+substance of the frog are scaled to a certain range so that
+
+they can be treated as a distinct substance.  With the
+
+classification, color, and opacity set, the frog can be
+
+rotated to any direction for viewing.  By changing the
+
+opacity value of the substances, one can view objects that
+
+are blocked by other objects.<p>
+
+
+
+<h2><a name = PROBLEMS>PROBLEMS ENCOUNTERED</h2><p>
+
+
+
+<h4><a name = Photographing>Photographing Lighting</h4><p>
+
+
+     The first problem involves the inability to keep the
+
+lighting constant when taking the original set of
+
+photographs at the cryotome.  The need to produce pictures
+
+that are consistently lit comes from the fact that, once
+
+inside the computer, different pixel values will be assigned
+
+to each tiny piece of the picture.  Since most organs
+
+contain generally one color throughout, the entire organ is
+
+expected to have fairly consistent pixel values.
+
+Consistency of pixel values aid in mask making.  When taking
+
+the pictures, the external light from a window near the
+
+cytotome was not taken into consideration.  The sectioning
+
+and photography process took about eight hours, and
+
+consequently, as the day progressed, the pictures became
+
+darker as the day did.  The artificial light that was
+
+provided by a lamp set up did little to stop the contrast
+
+between the daylight and night pictures.<p>
+
+
+
+<h4><a name = Misalignment>Misalignment</h4>
+
+
+     The next problem came about because the zoom factor was
+
+changed at two points while taking the original pictures at
+
+the cryotome.  Consistency of magnification throughout all
+
+the pictures is important because it alleviates the need to
+
+adjust the digitized images to the correct size in the
+
+computer.  Another cause for readjustment of the digitized
+
+pictures came from our inability to maintain the correct
+
+position of the frog on the sliding track of the cryotome
+
+with each photograph.  Each slight deviation from the
+
+correct position made it necessary to center each frame of
+
+the digitized pictures in the computer.<p>
+
+
+
+<h4><a name = Digitizing>Digitizing Lighting</h4>
+
+
+     We also had a problem with keeping the lighting
+
+constant throughout the digitizing process.  The lighting
+
+for all the 136 pictures had to be the same in order to
+
+obtain consistent pixel values.  This was very difficult
+
+using the high intensity reflective lights necessary for
+
+such a task.  This problem caused some of the frames used in
+
+the computer to be darker than others.<p>
+
+
+
+<h4><a name = Segmentation>Segmentation</h4>
+
+
+     After digitizing all the photos, the process of visual
+
+segmentation of the frog had to begin.  Since the frog could
+
+only be seen in frozen cross section, identifying all the
+
+organs posed a challenge.  Organs could only be seen as
+
+micron thin slices were cut away, causing them to look
+
+somewhat distorted.  The visual segmentation process was
+
+also complicated by the fact that the representation of the
+
+organs had to be made with hand drawings using a computer
+
+mouse pointing device.  The accuracy of the organs was thus
+
+limited to the experimentors drawing ability.<p>
+
+
+
+<h4><a name = Inconsistent>Inconsistent Data</h4>
+
+
+     The photograph data was not perfect.  First the
+
+thickness of each slice was not constantly 250 micron
+
+throughout the 136 slices.  Photos were taken every 5 slices
+
+of 50 micron thick.  But the crytome machine jammed at least
+
+6 times.  Each time it was jammed, the plate was lowered and
+
+the slicing motion was tested on a slice of the frog to find
+
+out what had gone wrong.  With each of the test slices, the
+
+thickness was not guaranteed to be 50 microns, in fact it
+
+was most likely less than 50 microns.  To make matters
+
+worse, the the machine sometimes jammed on a test slice.
+
+There might also have been human error involved in keeping
+
+count on the number of slices for the photographing.
+
+Secondly, the plane of slicing was changed by the loosening
+
+of the blade.  One factor causing the machine to jam was due
+
+to the loosening of the blade.  When the blade was tightened
+
+its angle might have changed.  Thus, the plane of slicing
+
+was affected.  All these problems were evident when a
+
+mapping of the photograph data to the MRI data was
+
+conducted.  Since the MRI data has 50 slices and the
+
+photograph data has 136 slice, every 2 to 3 slices of data
+
+in the photograph data should be taken out to match each MRI
+
+data.  But at some levels, as many as 10 slices were
+
+necessary to be taken out.<p>
+
+
+
+<h4><a name = Higher>Higher Resolution Desire</h4>
+
+
+     Finally, not enough slices were made to make a good
+
+representation of all the major systems.  Veins in the
+
+circulatory system are often smaller than 50 microns.  Thus
+
+the circulatory system was seen in only broken pieces in the
+
+reconstruction from 250 micron photographs.<p>
+
+
+
+<h2><a name =  IMPROVEMENT>IMPROVEMENT</h2>
+
+
+     Dr. Paul Licht, a specialist in amphibian anatomy, was
+
+consulted on how another experiment of the same sort might
+
+be completed with more success.  First, he advised us to
+
+perform a regular segmentation of a second frog, using it as
+
+a reference for the visual segmentation.  Next, he suggested
+
+taking more pictures in order to capture the entire
+
+circulatory system.  The circulatory system could also be
+
+highlighted by injecting florescent dye into the frog's
+
+blood stream.  He also made note of the fact that our frog
+
+was an immature male, and he suggested that we get a more
+
+mature specimen for a more complete representation of the
+
+reproductive system.<p>
+
+
+
+     Most of the problems encountered can be avoided in the
+
+next experiment.  Misalignment can be solved by setting up
+
+markers around the frog so that every photograph captures
+
+the markers.  The zoom factor of the camera lens should be
+
+kept constant throughout the photographing.  Since the
+
+camera is hanging, it might be advisable to lock the zoom
+
+lens to prevent it from sliding down.<p>
+
+
+
+     Minimal inconsistent data can be achieved by avoiding
+
+jamming the machine.  The blade should be tightened
+
+frequently to avoid loosening.  Also foreign objects other
+
+than the frog and wax should be avoided.  The Styrofoam used
+
+to hold the frog up was believed to have caused the
+
+loosening of the blade as well.  It will be wise to make
+
+note of the current frame number when the machine jams.
+
+Also try to avoid removing the metal plate as it will change
+
+the slicing angle.  Lastly, avoid leaning on the machine to
+
+prevent moving the machine.<p>
+
+
+
+     During the digitizing procedure, make sure that all
+
+four light bulbs are changed when one or more bulbs go out.
+
+It will be a good idea to have a photographer set up the
+
+camera and lighting before the slicing procedure.<p>
+
+
+
+     A better data set should be obtained with the proper
+
+light setting.  This should also help segmentation.  As Dr.
+
+Licht suggested a real dissection of a frog would help the
+
+segmentation.  The computer mouse is not a good device to
+
+trace objects during segmentation.  An alternative device
+
+like a pen and digitizing tablet  might do a better job.<p>
+
+
+<br/>
+<hr WIDTH=80% NOSHADE>
+<br/>
+<center><font face=arial,helvetica size=-1>
+<a href="https://www.lbl.gov/">Berkeley Lab</a> |
+<a href="https://dst.lbl.gov/">DST</a> | 
+<a href="https://www.lbl.gov/disclaimers/">Notice to Users</a> |
+<a href="/">Whole Frog Project</a> |
+<a href="/virtual/">Virtual Frog</a>
+</font></center>
+
+<p>
+<center><table Width="85%">
+<tr><td>
+<font face=arial,helvetica size=2 COLOR=GRAY>
+<!-- timefmt and LAST_MODIFIED are Apache variables. timfmt uses
+     the syntax of strtfmt -->
+
+<b>Page last modified:</b> 03/25/19<br/>
+<b>Contacts:</b> <a href="mailto:WEJohnston@lbl.gov">Bill Johnston</a>, 
+<a href="mailto:DWRobertson@lbl.gov">David Robertson</a><br/>
+
+</font>
+</table>
+</center>
+

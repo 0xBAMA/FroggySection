@@ -1,0 +1,13 @@
+
+TOMATO.MASKS.tar.Z:   masks, unsigned byte
+		   locule.mask
+		   placenta.mask
+		   seed.mask
+		   core.mask
+		   endocarp.mask
+
+tomato.images.Z: raster screendump of 2D images of tomato 
+
+tomato.data.Z:     raw MRI data, unsigned byte
+
+tomato.hd:         dimensions of tomato data 

@@ -1,0 +1,6 @@
+# robots.txt for https://froggy.lbl.gov/
+
+# applies equally to all robots
+User-agent: *
+Disallow: /cgi-bin
+Disallow: /tmp

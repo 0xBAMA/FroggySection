@@ -1,0 +1,31 @@
+
+frog.MASKS.tar:  masks, unsigned byte
+
+           blood.mask.Z
+		   brain.mask.Z
+		   duodenum.mask.Z
+		   eye.mask.Z
+		   eye.retna.mask.Z
+		   eye.white.mask.Z
+		   eye.white.mask.Z
+		   heart.mask.Z
+		   ileum.mask.Z
+		   kidney.mask.Z
+		   l_intestine.mask.Z
+		   liver.mask.Z
+		   lung.mask.Z
+		   muscle.mask.Z
+		   nerve.mask.Z
+		   skeleton.mask.Z
+		   skeleton.mask.Z
+		   stomach.mask.Z
+
+
+frog.IMAGES.tar: raster screendump of 2D images of frog 
+
+frog.data.Z:     raw slice data, unsigned byte
+RLE/*           original color images, RLE format (compressed)
+
+frog.hd:         dimensions of frog data 
+
+frog.zip:        zipped gif files of 2D images of frog

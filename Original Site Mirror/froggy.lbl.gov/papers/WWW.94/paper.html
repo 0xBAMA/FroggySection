@@ -1,0 +1,511 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+<head><title>Virtual Frog Dissection: Interactive 3D Graphics Via the Web</title></head>
+
+<BODY bgcolor="#ffffff">
+
+<h1>Virtual Frog Dissection: Interactive 3D Graphics Via the Web</h1>
+
+<h2>David Robertson, William Johnston, and Wing Nip</h2>
+
+<h2>Imaging and Distributed Computing Group</h2>
+<h2>Lawrence Berkeley National Laboratory</h2>
+
+<hr>
+<strong>Published in Proceedings, The Second International WWW Conference '94:
+Mosaic and the Web, Chicago, IL (1994).
+Hyperlinks have been updated periodically to replace stale links.</strong>
+<hr>
+
+<br>
+
+<h2>ABSTRACT</h2>
+
+<p>We have developed a set of techniques for providing interactive
+3D graphics via the World Wide Web (WWW) as part of the
+<a href="../../">``Whole Frog'' project</a>
+[
+<a href="#ref1"> 1 </a>
+].
+We had three goals:
+(1) to provide K-12 biology students
+with the ability to explore the anatomy of a frog with a virtual dissection
+tool;  
+(2) to show the feasibility of interactive visualization
+over the Web; and
+(3) to show the possibility for the Web and its associated browsers
+to be an easily used and powerful front end for high-performance computing resources.
+
+<p>We have developed techniques to
+utilize the
+<a href="http://hoohoo.ncsa.uiuc.edu/cgi/overview.html">Common Gateway Interface</a>
+(CGI) capability of WWW servers to provide an interactive
+3D visualization front end through Web clients.  These techniques have
+been used to make a
+<a href="/virtual/">
+``Virtual Frog Dissection Kit''</a>.
+A student using this kit has the ability
+to view various parts of a frog from many different angles, and
+with the different anatomical structures visible or invisible.
+For  example, the student can
+press ``form'' buttons that indicate that he or she wants to
+view the frog from above, with the exterior and skeleton
+removed.  An advantage to this technique, as opposed to dissecting
+a real frog, is that undissection is as easy as dissection.<p>
+
+<p>The kit has a
+<a href="http://hoohoo.ncsa.uiuc.edu/cgi/forms.html">forms</a>
+-based interface.  Form submission
+results in a call to a
+CGI script, which in turn
+contacts a continuously running process on a more powerful
+machine to accomplish the graphics rendering of a large 3D
+data set representing the frog and its internal organs. The
+resulting image is converted to Graphics
+Interchange Format (GIF)
+[
+<a href="#ref2"> 2 </a>
+]
+encoding.   When  that  process completes generation of the
+image, it passes the location of the image file and control
+back to the script which rewrites the image on the client.
+While this might sound
+awkward, the overall process is quite similar to how
+all rendering systems work, with the image being written into
+a local frame buffer, or sent across the network as an X-window
+image.<p>
+
+<br>
+
+<h2>1.  INTRODUCTION</h2>
+
+<p>
+This work is intended to demonstrate three uses for Web technology:
+<ul>
+<li>
+The ``Whole Frog'' project is designed to show how
+sophisticated image-based applications can enhance
+the K-12 curriculum in a variety of disciplines.  At the same
+time, these
+applications can introduce students and teachers
+to current
+computer and networking capabilities, and encourage them
+to acquire computer skills.  In the case of this project, the
+idea is to show how image-based applications can be applied to
+the teaching of biological sciences <b>-</b> specifically, the anatomy
+of a frog.<p>
+<li>The visualization of the frog data set demonstrates the potential of the Web
+to provide a uniform interface to another class of applications:
+interactive 3D visualization.<p>
+<li>
+The back end computation can take place on as complex and powerful a
+distributed system
+as needed to support the
+information display on the front end. All of this is hidden from the
+user.  In combination with the second point, this means that
+end users do not necessarily require high-performance rendering systems
+at their location.
+</ul>
+
+<p>Using a virtual dissection approach provides a realistic representation
+of the internal 3D structure of animals in a way that physical
+dissection can only imply:  organs and structures
+may be examined in their undisturbed relationships to each other.
+One can look at the stomach and skeleton by themselves,
+with their original relationship to each other, and then add the small
+intestine to see where it fits in (see
+<a href="robertson.fig1.gif">Figure 1</a>
+).  These operations would be
+difficult if not impossible in an actual dissection.<p>
+
+<p>Obtaining a 3D data set that represents the internal
+structures of an animal starts with building
+a voxel data set (voxels are small cubes - the 3D equivalent of pixels)
+that can be used as input for
+surface and/or volume rendering software. Generation of this data
+set for a frog required mechanical
+sectioning.  Magnetic resonance imaging did not
+provide sufficient resolution, due to differences between
+mammalian and amphibian physiology.  Each slice was photographed
+and digitized thereby providing a representation
+of the frog internals as roughly 10,000,000 tiny
+volume elements. Subsequently, semi-automatic segmentation (isolation
+and identification of structures)
+provided a ``mask'' representing each organ.  The details are
+available in the
+<a href="/papers/Reports/LBL.35331.html">Whole Frog Technical Report</a> [
+<a href="#ref3"> 3 </a>].<p>
+
+<p>Given this data set and the graphics tools to interact with
+and to present it, the Web pages for the dissection kit were
+developed.  They are designed
+to be usable over low-bandwidth networks,
+and with a variety of browsers.  They are also designed
+to have a minimal impact on the http server, and on the
+workstations used to perform graphics rendering.<p>
+
+<br>
+
+<h2>2.  DISSECTION KIT INTERFACE</h2>
+
+<p>The pages of the dissection kit are organized into an introductory
+page and two versions of the interactive forms-based program, along
+with associated tutorials.
+The introductory page provides information on, and access
+points to, the two versions.  One version
+is designed for browsers able to use
+<a href="http://hoohoo.ncsa.uiuc.edu/docs/setup/admin/Imagemap.html"> image mapping</a>
+(interactive images),
+and one provides for those browsers that cannot.<p>
+
+<p>The tutorials work through sample sessions.
+Having a step-by-step tutorial available is a useful addition to
+documentation pages.  The capabilities of the program, as well as
+the appearance of the user interface after various steps, can be
+directly demonstrated.  Forms were used instead of
+images of the user interface so that the tutorial will look
+the same as the interactive program on the platform used.
+
+<p>The original format of the tutorial caused some confusion, as
+could be inferred from the transfer log (a record of accesses to 
+our http server), and improvements were made.  In general, in developing
+a fairly extensive forms interface, the transfer log is extremely useful
+in seeing how a program is utilized, and in suggesting improvements.<p>
+
+<p>The first form of the interactive
+program is brought up through
+a link from the introductory page.  It is a standard HTML file,
+with a reference to a previously-generated top view of the frog.
+No other permanent HTML files or GIF images
+are generated or accessed during any further interaction.
+All subsequent images are produced in real time.<p>
+
+<p>
+<a href="robertson.fig1.gif">Figure 1</a>
+shows a form as it appears in
+the image-mapped version.  (In the following only the image-mapped
+version of the program is covered.)
+This interface provides three ways for the user to interactively
+learn about frog anatomy:  controlling which organs are visible,
+controlling the angle from which to view the frog, and using a
+mode of interaction that brings up brief descriptions of the
+organs seen in the image.  In Figure 1 the first two of these
+options are exercised.<p>
+
+<p>The form settings in the top two rows control which organs
+are visible.  The ``Skin'' menu controls how much of the frog's
+skin is seen:  all, none, or with a window cut in the skin
+to show the internal anatomy.  (No attempt is made to render
+the muscles, due to difficulties in achieving an accurate mask
+for them during segmentation of the data set.)
+Any combination of the organs listed may be chosen for viewing.
+With some combinations, even if an organ is chosen, it may not
+be visible because another item (such as the skin) is also chosen.<p>
+
+<p>The organs are color coded to make them readily distinguishable.
+These do not necessarily reflect the true colors of the frog's organs.
+The color coding used is listed below the image.<p>
+
+<p>The images of the frog are inline and thus GIF encoded.  Even
+with this form of compression the amount of data to send can
+be up to 60 kilobytes, which takes about sixty seconds on
+a 9600 baud modem.  The menu immediately to the right of the image
+can be set to send compressed images of 3 different sizes:  up to 5 kilobytes
+for those with slower connections, up to 20 kilobytes for normal
+use, and up to 60 kilobytes for high quality.<p>
+
+<p>Clicking on the image yields different results depending on
+how the menu labelled ``view'' is set.  In the default case, clicking on
+the image near an edge will rotate the frog in that
+general direction.  Clicking near the middle will reset the view to
+its initial orientation.  If there is currently a top view, clicking
+near the middle will flip the frog over and show a view from below (as
+in Figure 1).<p>
+
+<a name=inter_section></a>
+<p>If the ``view'' menu is set to its other option, clicking on any
+organs visible in
+the frog will give a brief description of that organ.  Accomplishing
+the translation from click to organ description is described in
+the
+<a href="#organ_section">section</a>
+on image generation.<p>
+
+<br>
+
+<h2>3.  ARCHITECTURE</h2>
+
+<p>
+<a href="robertson.fig2.gif">Figure 2</a> shows what occurs when a user submits a form
+on the client.  The form settings are passed to a CGI script
+written in C, running on LBL's Imaging and Distributed Computing
+Group's http server.  The script parses the incoming data
+and sends the result via a socket to an already running rendering
+process (server) on a different machine.
+The load on the http server is minimal; most of the
+computation is performed on the rendering server.<p>
+
+<p>The load is further spread out by having four different
+machines available.  One of these four machines
+is chosen at random to perform the rendering, which takes
+about a second for the standard image size.  There has not been a
+noticeable impact on
+the performance of these machines, which are regularly used for
+other purposes by our group (during peak periods in August 1994,
+there were 5 to 6 accesses causing image rendering per minute).<p>
+
+<p>The rendering server generates an image from the
+data list representing the frog.  The formation of the data list
+from the voxel and mask data,
+and the rendering, are described in the next
+<a href="#image_section"> section.</a>
+The data list, consisting of points and associated surface
+normals, is about 5 megabytes.
+It is loaded once upon the instantiation of a rendering process,
+and is thus either always in memory or swapped out.
+A full copy of the data list is loaded in each
+of the four rendering processes.<p>
+
+<p>After the image is generated by the 3D rendering, it is GIF encoded and written to a temporary
+file.  Temporary image files more than a half hour old
+are purged by a script that runs periodically.  The temporary files have
+a lifetime that long because a person may want to use the ``Back''
+capability available on many Web browsers to go back to a previously
+generated image, and the image may no longer be in cache.<p>
+
+<p>Since many people may be simultaneously accessing the dissection kit, the
+file name must be unique, or else one person may
+receive the image from another's form submission.  The method
+chosen for naming is to take the current time in seconds and
+microseconds, and concatenate it into the temporary file name.
+This file name is sent back from the rendering process
+via a socket to the CGI script.
+
+<p>The script prints the form settings and the location of the image file
+in HTML format to standard output, where it is intercepted by the
+http daemon and sent back to the client.
+Before printing the form settings out, the script checks to see if
+any of them have changed during the current invocation,
+as a result of rendering or other
+actions, and updates them as necessary.  
+For example, a form ``reset'' will set all menus and buttons back to
+their defaults.<p>
+
+<p>Each invocation of the CGI script is completely independent,
+and thus there is no information saved from one call to the next.
+However, the viewing transformation matrix used during
+rendering has to be saved to be able to generate a sequence of
+gradually changing views, and this viewing matrix has to be maintained for
+each user.
+A method used to store information between invocations is to incorporate that
+information in one of the form names.  Information can also be stored
+in the URL, but that would result in a lengthy string in this case.<p>
+
+<p>In this case, the current transformation matrix is encoded as
+a string that is part of a menu name.
+The CGI script decodes it and passes it to the rendering server, which
+may modify the matrix.
+After rendering, the transformed matrix is
+converted back to a string and replaces the previous menu name when
+the form settings are sent back to the client.<p>
+
+<br>
+
+<h2><a name=image_section>4.  IMAGE GENERATION</a></h2>
+
+<p>An image of the frog is rendered from a pre-existing list consisting of
+voxel locations and associated surface normals, representing the organs of
+the frog.  The list was produced using a modification of the
+Dividing Cubes method
+[
+<a href="#ref4"> 4 </a>
+]
+for 3D surface generation.  Mask values resulting from organ segmentation
+are used instead of thresholding to identify the voxels that will be
+utilized in the surface generation step.  The modified Dividing Cubes 
+algorithm is used separately on each organ mask, resulting in lists of
+voxels for each organ.  Since the list is only generated once, time is
+not a factor.  Enhancements were made to the way surface voxels are chosen
+and to the way surface normals are approximated.<p>
+
+<p>The resulting point list contains approximately 450,000 points.  If
+an organ is not selected for viewing, its portion of the point list is
+skipped.  Rendering is straightforward, using a z-buffer for hidden
+surface removal
+[
+<a href="#ref5"> 5 </a>]
+].  A limitation of the current method is that the sub-cubes portion
+of the Dividing Cubes algorithm is not implemented; the size of the
+resulting image is dependent on the original data resolution.  To
+use the current method, data sets should be at least 256x256x128.
+
+<p>The use of point (voxel) primitives and previously
+generated normals results in rapid image generation (one second or less for the standard-sized image)
+with a good level of detail.  Since the image contains much constant background,
+especially if only a few organs are
+selected, the GIF method of encoding provides a compression ratio of at
+least 4:1.<p>
+
+<p>Transmission of the compressed image over a slow network can cause
+delays.  However, those browsers that support ``Back'' and ``Forward''
+to go to previously viewed pages, and that support image caching,
+allow quick viewing of the images that have been generated in the last
+half hour (older images are purged).<p>
+
+<a name=organ_section></a>
+<p>While rendering is occurring, an additional technique is used to enable the
+``image click to organ translation'' feature described in a previous
+<a href="#inter_section">section</a>.
+Analogous to a z-buffer, an ``organ buffer'' is used to store the
+current organ membership for each pixel.  When one voxel overwrites
+another via the z-buffer method, the organ buffer is updated as well.
+This technique makes organ identification possible regardless
+of the orientation of the view: any visible part of the organ
+will be identified by this technique. <p>
+
+<p>If the interface has just been placed in organ mode (as opposed to
+rotation mode) the organ buffer is written to a temporary file.  Further
+clicks on the image will result in the CGI script seeking to and reading
+the appropriate value from that file, instead of contacting a rendering
+server to generate a new view.  The seek location is given by the
+clicked-on x and y position.  Note that the configuration file typically
+associated with image-mapping is not used.  With a configuration file,
+the x and y position are used
+as an index into a predefined region, and the exact position is not
+available to the script.<p>
+
+<br>
+
+<h2>5.  CONCLUSIONS</h2>
+
+<p>The frog dissection kit is designed to be readily accessible.
+Consideration is given to the different capabilities of browsers.
+A non-image mapped version of the interface uses a compass-like control
+instead of image clicks for rotation.  Also, there is an option
+to generate smaller
+images for browsers connected over low-bandwidth networks.  To
+facilitate learning the capabilities of the user interface, step-by-step
+tutorials demonstrating the use of the program are also included.<p>
+
+<p>The virtual dissection kit shows three uses for Web
+technology:<p>
+
+<ul>
+<li>
+It is an alternative to
+dissection of a real frog, and adds new capabilities such as undissection.
+The spatial relationships of organs to each other are easily seen, in
+combinations that would be physically unstable in a real dissection.
+Possible extensions that would make the simulation more complete are
+a virtual cutting tool and the use of a higher-resolution data set.
+Stereoscopic imaging could be combined with a head-mounted display to
+give the appearance of wandering about through the frog's organs.<p>
+
+<p>Only one or a few frogs need to be sacrificed, and students who
+are uncomfortable with cutting up an animal have an option to
+learn frog anatomy through virtual dissection.
+Also this kit is not hard-wired to show frog anatomy.  Given a
+large-enough data set and a segmentation
+mask, the dissection kit software could easily be used for other organisms.<p>
+
+<li>The kit is an example of how interactive 3D graphics can
+be made widely available over the Web.  This is possible
+without causing too much of a load on our site by the distribution of
+the task between the http server and the rendering server, and having one of
+a pool of machines available for rendering.
+In general, a well-equipped facility can readily provide services
+such as the kit by spreading the load among workstations.
+Powerful workstations, and the capabilities such as visualization
+that they provide, can be made much more accessible to K-12 sites through use
+of the Web.<p>
+
+<li>It was relatively easy using Web technologies, for example CGI,
+to bring up a distributed system such as the frog kit as an information server.
+This suggests that Web browsers could also be
+a convenient means for scientists as well as students to collaborate using
+applications running
+on more powerful distributed systems and high-performance servers,
+and/or applications using expensive experimental systems. 
+The availability of
+Web browsers for a wide variety of platforms, along with the Web's
+hypermedia capabilities, further the appeal of such an approach.<p>
+</ul>
+
+<br>
+
+<h2>6.  ACKNOWLDGEMENTS</h2>
+
+<p>We thank Keshea Williams of Jackson State University,
+Lynne Ottoson of Oakland Public Schools, and Dennis Herriford
+of Portland Public Schools, for their input in the development
+of the dissection kit, and the
+<a href="/#credits">people</a> who made the ``Whole Frog'' project possible.<p>
+
+<p>This work was sponsored
+by the U. S. Dept. of Energy, Energy Research Division, Office
+of Scientific Computing, John Cavallini program manager.
+Lawrence Berkeley Laboratory is operated by the University of California
+for DOE under contract DE-AC03-76SF00098.<p>
+
+<p>This paper is available as a technical report, LBL-36152, University
+of California, Lawrence Berkeley Laboratory, Berkeley, CA 1994.<p>
+
+<br>
+
+<h2>7.  REFERENCES</h2>
+
+<a name=ref1></a>
+1.  Johnston, W.E.  <i>The Whole Frog Project</i> (Web page).
+<a  href="https://froggy.lbl.gov/">https://froggy.lbl.gov/</a>,
+University of California, Lawrence Berkeley Laboratory,
+Berkeley, CA, 1994.<p>
+
+<a name=ref2></a>
+2.  Graef, G.  Graphics formats:  A close look at GIF, TIFF, and other attempts
+at a universal image format. <i>Byte 14</i> 9 (Sept. 1989),
+305-310.<p>
+
+<a name=ref3></a>
+3.  Nip, W. and Logan, C.  Whole Frog Technical Report.
+LBL-35331, University of California, Lawrence Berkeley Laboratory,
+Berkeley, CA, 1991.<p>
+
+<a name=ref4></a>
+4.  Cline, H.E., Lorensen W.E., Ludke, S., Crawford, C.R., and Teeter, B.C.
+Two algorithms for the three-dimensional reconstruction of tomograms,
+<i>Medical Physics 15</i> 3 (May/June 1988), 320-327.<p>
+
+<a name=ref5></a>
+5.  Foley, J.D., and van Dam, A.
+<i>Fundamentals of Interactive Computer Graphics</i>, 2nd ed.,
+Addison-Wesley Publishing Company: Reading, MA, 1990.<p>
+
+<br/>
+<hr WIDTH=80% NOSHADE>
+<br/>
+<center><font face=arial,helvetica size=-1>
+<a href="https://www.lbl.gov/">Berkeley Lab</a> |
+<a href="https://dst.lbl.gov/">DST</a> | 
+<a href="https://www.lbl.gov/disclaimers/">Notice to Users</a> |
+<a href="/">Whole Frog Project</a> |
+<a href="/virtual/">Virtual Frog</a>
+</font></center>
+
+<p>
+<center><table Width="85%">
+<tr><td>
+<font face=arial,helvetica size=2 COLOR=GRAY>
+<!-- timefmt and LAST_MODIFIED are Apache variables. timfmt uses
+     the syntax of strtfmt -->
+
+<b>Page last modified:</b> 03/25/19<br/>
+<b>Contacts:</b> <a href="mailto:WEJohnston@lbl.gov">Bill Johnston</a>, 
+<a href="mailto:DWRobertson@lbl.gov">David Robertson</a><br/>
+
+</font>
+</table>
+</center>
+
+
+</body>
+</html>
