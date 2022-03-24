@@ -5,4 +5,11 @@ This cryosection dataset is relatively unique in that they manually masked out a
 
 The site describes the application of taking the place of dissection on preserved sample frogs, by allowing students to look at where the major organ systems are and how they relate to one another without having to perform the physical dissection.
 
-NOTE: working with the data in Voraldo, I've found that there's alignment and resolution differences between the datasets - There's another set of downsampled images of the cryosection slices, but I haven't gotten it together yet.
+NOTE: working with the data in Voraldo, I've found that there's alignment and resolution differences between the datasets - There's another set of downsampled images of the cryosection slices that should line up, but I haven't gotten it together yet. The masks are consistent with each other, and work for false color renderings like these:
+
+
+Bones and Muscles masks
+<img src="muscle_bone.png">
+
+Bones, Nerves, and Blood masks
+<img src="bones_nerves_blood.png">
