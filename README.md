@@ -9,7 +9,7 @@ NOTE: working with the data in Voraldo, I've found that there's alignment and re
 
 
 Bones and Muscles masks
-<img src="example/muscle_bone.png">
+<img src="Voraldo Example/muscle_bone.png">
 
 Bones, Nerves, and Blood masks
-<img src="example/bones_nerves_blood.png">
+<img src="Voraldo Example/bones_nerves_blood.png">
