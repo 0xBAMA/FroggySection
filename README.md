@@ -11,7 +11,7 @@ https://user-images.githubusercontent.com/43890665/163740270-afbbb5a2-76c9-470f-
 
 As far as I'm concerned, I don't think the data is easily recoverable. The filesize (kind of) matches the description in the associated readme, except the number of bytes in the file is only enough for single channel data (exactly enough, no header) instead of the three channel specified by the readme, and the contents of the archived data are badly distorted.
 
-If you wish to do something with the data, I recommend just using the masks are consistent with each other, and work for false color renderings like these:
+If you wish to do something with the data, I recommend just using the masks, which are consistent with each other and work for false color renderings like the following:
 
 
 Bones and Muscles masks
